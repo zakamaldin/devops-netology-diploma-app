@@ -20,20 +20,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "docker build . -t cr.yandex/${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
+                sh "docker build --no-cache -t cr.yandex/${REGISTRY_ID}/devops-netology-diploma-app:0.0.1 ."
                 sh "docker push ${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
         }
+
+        stage('Clean') { steps {
+                sh 'docker rmi $(docker images -a -q)'
+            }
+
     }
 }
