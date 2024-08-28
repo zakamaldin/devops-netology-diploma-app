@@ -37,7 +37,7 @@ pipeline {
         stage('Clean') { 
             steps {
                 cleanWs()
-                sh 'docker prune -a -f'
+                sh 'docker system prune -a -f'
             }
         }
 
