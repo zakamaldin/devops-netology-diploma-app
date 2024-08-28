@@ -1,4 +1,4 @@
-REGISTRY_ID = 'crp869baegfbm77ku52s'
+REGISTRY_ID = 'crpu00qg6bm5s01t253q'
 
 pipeline {
 
