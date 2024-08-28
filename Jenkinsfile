@@ -21,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh "docker build . -t cr.yandex/${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
-                sh "docker pushh ${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
+                sh "docker push ${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
             }
         }
 
