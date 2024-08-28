@@ -34,6 +34,7 @@ pipeline {
         stage('Clean') { steps {
                 sh 'docker rmi $(docker images -a -q)'
             }
+        }
 
     }
 }
