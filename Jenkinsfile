@@ -1,4 +1,7 @@
 REGISTRY_ID = 'crpu00qg6bm5s01t253q'
+REGISTRY_URL = 'cr.yandex'
+MAJOR = '0'
+MINOR = '0'
 
 pipeline {
 
@@ -12,7 +15,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'registry_token', variable: 'TOKEN')]) {
                     sh """
                       set +x
-                      docker login -u iam -p ${TOKEN} cr.yandex
+                      docker login -u iam -p ${TOKEN} ${REGISTRY_URL}
                     """
                 }
             }
@@ -20,8 +23,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "docker build --no-cache -t cr.yandex/${REGISTRY_ID}/devops-netology-diploma-app:0.0.1 ."
-                sh "docker push cr.yandex/${REGISTRY_ID}/devops-netology-diploma-app:0.0.1"
+                sh "docker build --no-cache -t ${REGISTRY_URL}/${REGISTRY_ID}/devops-netology-diploma-app:${MAJOR}.${MINOR}.${currentBuild.number} ."
+                sh "docker push ${REGISTRY_URL}/${REGISTRY_ID}/devops-netology-diploma-app:${MAJOR}.${MINOR}.${currentBuild.number}"
             }
         }
 
@@ -31,8 +34,10 @@ pipeline {
             }
         }
 
-        stage('Clean') { steps {
-                sh 'docker rmi $(docker images -a -q)'
+        stage('Clean') { 
+            steps {
+                cleanWs()
+                sh 'docker prune -a -f'
             }
         }
 
