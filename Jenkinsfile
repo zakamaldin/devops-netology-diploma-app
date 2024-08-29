@@ -1,4 +1,4 @@
-REGISTRY_ID = 'crp8a4pr1naq2et8gafj'
+REGISTRY_ID = 'crpr1869rllrkh2r3o54'
 REGISTRY_URL = 'cr.yandex'
 MAJOR = '0'
 MINOR = '0'
