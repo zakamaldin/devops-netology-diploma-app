@@ -29,8 +29,10 @@ pipeline {
         stage('Build') {
             steps {
                 script{
-                    def tag = sh(returnStdout: true, script: "git describe --exact-match HEAD")
-                    println tag
+                    def tag = sh(returnStdout: true, script: "git describe --exact-match HEAD 2>/dev/null")
+                    if (tag.length() > 0) {
+                        IMAGE_TAG = tag
+                    }
                 }
                 
                 sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
