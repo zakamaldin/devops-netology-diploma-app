@@ -29,7 +29,7 @@ pipeline {
         stage('Build') {
             steps {
                 script{
-                    def tag = sh(returnStdout: true, script: "git tag --points-at HEAD")
+                    def tag = sh(returnStdout: true, script: "git tag --points-at HEAD | tail -n 1").trim()
                     if (tag.length() > 0) {
                         IMAGE_TAG = tag
                     }
