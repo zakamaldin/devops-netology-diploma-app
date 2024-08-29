@@ -28,8 +28,11 @@ pipeline {
 
         stage('Build') {
             steps {
-                def tag = sh(returnStdout: true, script: "git describe --exact-match HEAD")
-                println tag
+                script{
+                    def tag = sh(returnStdout: true, script: "git describe --exact-match HEAD")
+                    println tag
+                }
+                
                 sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
                 sh "docker push ${IMAGE_URL}:${IMAGE_TAG}"
             }
