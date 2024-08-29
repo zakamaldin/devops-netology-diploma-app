@@ -1,7 +1,11 @@
-REGISTRY_ID = 'crpu00qg6bm5s01t253q'
+REGISTRY_ID = 'crp8a4pr1naq2et8gafj'
 REGISTRY_URL = 'cr.yandex'
 MAJOR = '0'
 MINOR = '0'
+
+APP_NAME = 'devops-netology-diploma-app'
+IMAGE_URL = "${REGISTRY_URL}/${REGISTRY_ID}/${APP_NAME}"
+IMAGE_TAG = "${MAJOR}.${MINOR}.${currentBuild.number}"
 
 pipeline {
 
@@ -21,16 +25,20 @@ pipeline {
             }
         }
 
+
         stage('Build') {
             steps {
-                sh "docker build --no-cache -t ${REGISTRY_URL}/${REGISTRY_ID}/devops-netology-diploma-app:${MAJOR}.${MINOR}.${currentBuild.number} ."
-                sh "docker push ${REGISTRY_URL}/${REGISTRY_ID}/devops-netology-diploma-app:${MAJOR}.${MINOR}.${currentBuild.number}"
+                echo "${env.BRANCH_NAME}"
+                echo "${env.TAG_NAME}"
+                sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
+                sh "docker push ${IMAGE_URL}:${IMAGE_TAG}"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Check connect to k8s cluster'
+                sh "kubectl cluster-info"
             }
         }
 
