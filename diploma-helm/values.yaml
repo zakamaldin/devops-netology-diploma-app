@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   name: devops-netology-diploma-app
-  tag: "0.0.12"
+  tag: "0.0.13"
 
 service:
   type: ClusterIP
