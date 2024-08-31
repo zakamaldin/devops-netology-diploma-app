@@ -50,7 +50,7 @@ pipeline {
                 echo "Update helm chart values with new version of image"
                 
                 echo 'Deploy app'
-                sh "helm upgrade diploma-helm -i diploma-helm"
+                sh "helm upgrade -i diploma-1 diploma-helm"
 
             }
         }
