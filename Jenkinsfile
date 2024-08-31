@@ -46,6 +46,12 @@ pipeline {
             steps {
                 echo 'Check connect to k8s cluster'
                 sh "kubectl cluster-info"
+
+                echo "Update helm chart values with new version of image"
+                
+                echo 'Deploy app'
+                sh "helm upgrade diploma-helm -i diploma-helm"
+
             }
         }
 
