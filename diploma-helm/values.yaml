@@ -4,13 +4,13 @@ fullnameOverride: ""
 
 registry:
   url: yandex.cr
-  id: 
+  id: crps7jie101dk1v9npe5
 
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: "1.14.2"
+  name: devops-netology-diploma-app
+  tag: "0.0.12"
 
 service:
   type: ClusterIP
