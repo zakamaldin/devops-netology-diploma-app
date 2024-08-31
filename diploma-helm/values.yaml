@@ -3,7 +3,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 registry:
-  url: yandex.cr
+  url: cr.yandex
   id: crps7jie101dk1v9npe5
 
 replicaCount: 1
