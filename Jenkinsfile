@@ -25,16 +25,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                script{
-                    def tag = sh(returnStdout: true, script: "git tag --points-at HEAD | tail -n 1").trim()
-                    if (tag.length() > 0) {
-                        IMAGE_TAG = tag
-                    }
-                }
                 withCredentials([string(credentialsId:'registry_id', variable: 'REGISTRY_ID')]) {
-                    def IMAGE_URL = "${REGISTRY_URL}/${REGISTRY_ID}/${APP_NAME}"
-                    sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
-                    sh "docker push ${IMAGE_URL}:${IMAGE_TAG}"
+                    script{
+                        def tag = sh(returnStdout: true, script: "git tag --points-at HEAD | tail -n 1").trim()
+                        if (tag.length() > 0) {
+                            IMAGE_TAG = tag
+                        }
+                        def IMAGE_URL = "${REGISTRY_URL}/${REGISTRY_ID}/${APP_NAME}"
+                        sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
+                        sh "docker push ${IMAGE_URL}:${IMAGE_TAG}"
+                    }
                 }
             }
         }
