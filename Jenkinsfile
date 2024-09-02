@@ -50,7 +50,7 @@ pipeline {
                         def values = readYaml file : 'diploma-helm/values.yaml'
                         values['image']['tag'] = IMAGE_TAG
                         values['registry']['id'] = REGISTRY_ID
-                        writeYaml file: 'diploma-helm/values.yaml' , data: values
+                        writeYaml file: 'diploma-helm/values.yaml' , data: values, overwrite: true
                     }
                 }
                 
