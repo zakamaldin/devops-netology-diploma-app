@@ -47,10 +47,10 @@ pipeline {
                 echo "Update helm chart values with new version of image"
                 withCredentials([string(credentialsId:'registry_id', variable: 'REGISTRY_ID')]) {
                     script { 
-                        def values = readYaml file : 'values.yaml'
+                        def values = readYaml file : 'diploma-helm/values.yaml'
                         values['image']['tag'] = IMAGE_TAG
                         values['repository']['id'] = REGISTRY_ID
-                        writeYaml file: 'values.yaml' , data: values
+                        writeYaml file: 'diploma-helm/values.yaml' , data: values
                     }
                 }
                 
