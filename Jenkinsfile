@@ -1,6 +1,3 @@
-import groovy.yaml.YamlSlurper
-import groovy.yaml.YamlBuilder
-
 REGISTRY_URL = 'cr.yandex'
 MAJOR = '0'
 MINOR = '0'
@@ -50,14 +47,10 @@ pipeline {
 
                     echo "Update helm chart values with new version of image"
                     script { 
-                        def slurper = new YamlSlurper()
-                        def builder = new YamlBuilder()
-                        def yaml_file = new File('values.yaml').text
-                        def values = slurper.parseText(yaml_file)
-
+                        def values = readYaml file : 'values.yaml'
                         values['image']['tag'] = IMAGE_TAG
-                        values['repository']['id'] = REGISTRY_ID  
-                        new File('values.yaml').text = builder(values).toString()
+                        values['repository']['id'] = REGISTRY_ID
+                        writeYaml file: 'values.yaml' , data: values
                     }
                     
                     echo 'Deploy app'
