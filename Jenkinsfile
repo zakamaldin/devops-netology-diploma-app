@@ -10,8 +10,6 @@ pipeline {
     agent {
         label "linux"
     }
-    IMAGE_URL = "${REGISTRY_URL}/${REGISTRY_ID}/${APP_NAME}"
-
     stages {
         stage('Login docker in registry') {
             steps {
@@ -34,6 +32,7 @@ pipeline {
                     }
                 }
                 withCredentials([string(credentialsId:'registry_id', variable: 'REGISTRY_ID')]) {
+                    IMAGE_URL = "${REGISTRY_URL}/${REGISTRY_ID}/${APP_NAME}"
                     sh "docker build --no-cache -t ${IMAGE_URL}:${IMAGE_TAG} ."
                     sh "docker push ${IMAGE_URL}:${IMAGE_TAG}"
                 }
